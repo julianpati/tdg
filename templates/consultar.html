@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{% load staticfiles %}
+<html lang="es">
+
+<head>
+    <title>Buscar{% if query %} Results{% endif %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gestorRestaurante/style.css' %}" />
+</head>
+
+<body bgcolor="DED63C">
+    <div id="wrapper">
+            <table width="100%" bgcolor="#F9821A">
+                <tr>
+                <td>
+                <h1>Master chef.</h1>
+                Usuario: {{user.username|capfirst}}<br>
+                    <a href="/principal/">principal.</a><br>
+                    <a href="/cerrar/">Cerrar sesión.</a>
+                </td>
+                </tr>
+            </table>
+            <center>
+                <a href="/ordenes_en_cola/" > <img src="{% static "gestorRestaurante/imagenes/ordenes.jpg" %}" alt="My image"/ width="10%" height="10%"></a>
+                <a href="/seleccionar_plato/" > <img src="{% static "gestorRestaurante/imagenes/preparar.png" %}" alt="My image"/  width="10%" height="10%"></a>
+                <a href="/gestion_menus/" > <img src="{% static "gestorRestaurante/imagenes/menu.jpg" %}" alt="My image"/  width="10%" height="10%"></a>
+                <a href="/inventario/buscar" > <img src="{% static "gestorRestaurante/imagenes/inventario.jpg" %}" alt="My image"/  width="10%" height="10%"></a>
+                <a href="/gestion_cuentas/" > <img src="{% static "gestorRestaurante/imagenes/cuentas.png" %}" alt="My image"/  width="10%" height="10%"></a>
+            </center>
+
+            <table  width="100%">
+                <tr>
+                    <td width="15%"></td>
+
+                    <td>
+                        <h1>Búsqueda.</h1>
+                        <form action="." method="GET">
+                          <label for="q">Buscar : </label>
+                          <input type="text" name="q" value="{{ query|escape }}">
+                          <input type="submit" value="Buscar">
+                        </form>
+
+                        {% if query %}
+                        <h2>Resultados para "{{ query|escape }}":</h2>
+                          <TABLE border="1" WIDTH=50%>
+                            <tr>
+                                    <TD WIDTH=10%>
+                                      <p>Nombre</p>
+                                    </TD>
+
+                                    <TD WIDTH=20%>
+                                      <p>Descripcion</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>Unidad de medida</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>Cantidad disponible</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>Precio unitario</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>Cantidad minima</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                        <p>Alerta</p>
+                                    </TD>
+                            </tr>
+                        {% if results %}
+
+                          {% for inv in results %}
+                            <tr>
+                                    <TD WIDTH=10%>
+                                      <p>{{inv.nombre}}</p>
+                                    </TD>
+
+                                    <TD WIDTH=20%>
+                                      <p>{{inv.descripcion}}</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>{{inv.unidadMedida}}</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>{{inv.cantidadDisponible}}</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>{{inv.precioUnitario}}</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>{{inv.cantidadMinima}}</p>
+                                    </TD>
+                                    <TD WIDTH=5%>
+                                      <p>{{inv.alerta}}</p>
+                                    </TD>
+                            </tr>
+                                {% endfor %}
+                          </TABLE>
+                        {% else %}
+                          <p>No se encontraron elementos.</p>
+                        {% endif %}
+                        {% else %}
+                            <TABLE border="1" WIDTH=50%>
+                            <tr>
+                                <TD WIDTH=10%>
+                                  <p>Nombre</p>
+                                </TD>
+
+                                <TD WIDTH=20%>
+                                  <p>Descripcion</p>
+                                </TD>
+                                <TD WIDTH=5%>
+                                  <p>Unidad de medida</p>
+                                </TD>
+                                <TD WIDTH=5%>
+                                  <p>Cantidad disponible</p>
+                                </TD>
+                                <TD WIDTH=5%>
+                                  <p>Precio unitario</p>
+                                </TD>
+                                <TD WIDTH=5%>
+                                  <p>Cantidad minima</p>
+                                </TD>
+                                <TD WIDTH=5%>
+                                    <p>Alerta</p>
+                                </TD>
+                            </tr>
+
+
+                                {% for i in inv %}
+                                    <tr>
+                                        <TD WIDTH=10%>
+                                          <p>{{i.nombre}}</p>
+                                        </TD>
+                                        <TD WIDTH=20%>
+                                          <p>{{i.descripcion}}</p>
+                                        </TD>
+                                        <TD WIDTH=5%>
+                                          <p>{{i.unidadMedida}}</p>
+                                        </TD>
+                                        <TD WIDTH=5%>
+                                          <p>{{i.cantidadDisponible}}</p>
+                                        </TD>
+                                        <TD WIDTH=5%>
+                                          <p>{{i.precioUnitario}}</p>
+                                        </TD>
+                                        <TD WIDTH=5%>
+                                          <p>{{i.cantidadMinima}}</p>
+                                        </TD>
+                                        <TD WIDTH=5%>
+                                          <p>{{i.alerta}}</p>
+                                        </TD>
+                                    </tr>
+                                {% endfor %}
+
+                          </TABLE>
+
+                        {% endif %}
+                        </td>
+                </tr>
+            </table>
+    <div class="clear"></div>
+    </div>
+    <div id="footer">
+        <center>
+            <p>Copyright © 2016. <br> Julián Andrés Patiño Tel: 313 635 8836 Email: julandpatino@utp.edu.co<br>
+                Luis Alfonso Zuleta Tel: 317 726 5964 Email: alfonzule@utp.edu.co <br>
+                Pereira-Risaralda.
+            </p>
+        </center>
+    </div>
+</body>
+
+</html>

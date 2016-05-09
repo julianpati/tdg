@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos de la orden</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gestorRestaurante/style.css' %}" />
+    <script type="text/javascript">
+        function valida(f) {
+            if(document.getElementById('cantidad').value.length == 0){
+                document.getElementById('mail').focus();//enfocar el campo
+                alert('complete el campo mail');//lanzar mensaje
+                return false;//suspender la ejecución de la función
+}
+        }
+    </script>
+</head>
+<body bgcolor="DED63C">
+    {% if user.is_authenticated %}
+        <div id="wrapper">
+            <table width="100%" bgcolor="#F9821A">
+                <tr>
+                <td>
+                <h1>Master chef.</h1>
+                Usuario: {{user.username|capfirst}}<br>
+                    <a href="/principal/">principal.</a><br>
+                    <a href="/cerrar/">Cerrar sesión.</a>
+                </td>
+                </tr>
+            </table>
+            <center>
+                    <a href="/tomar_orden/" > <img src="{% static "gestorRestaurante/imagenes/tomarorden.jpg" %}" alt="My image"/  width="15%" height="15%"></a>
+                    <a href="/anadir_platos/" > <img src="{% static "gestorRestaurante/imagenes/anadirplatosalaorden.jpg" %}" alt="My image"/  width="15%" height="15%"></a>
+                    <a href="/menu_dia/" > <img src="{% static "gestorRestaurante/imagenes/menudeldia.png" %}" alt="My image"/  width="15%" height="15%"></a>
+            </center>
+
+            <table  width="100%">
+                <tr>
+                    <td width="15%"></td>
+
+                    <td>
+                        <form  action="/tomar_orden/crear_orden/{{mesa}}/" id="post-form"  method="post" >
+                            {% csrf_token %}
+                            <br>
+
+                            <br>Platos disponibles:
+                            {% for d in datosMenu %}
+                                <br>
+                                <label>{{d.plato}}</label>
+                                <input type="number" id="cantidad" name="cantidad[]"  value={{d.plato}} />
+                            {% endfor %}
+
+                                <br>
+                                <input type="submit" value="Guardar." />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="clear"></div>
+        </div>
+        <div id="footer">
+            <center>
+                <p>Copyright © 2016. <br> Julián Andrés Patiño Tel: 313 635 8836 Email: julandpatino@utp.edu.co<br>
+                    Luis Alfonso Zuleta Tel: 317 726 5964 Email: alfonzule@utp.edu.co <br>
+                    Pereira-Risaralda.
+                </p>
+            </center>
+        </div>
+
+
+    {% else %}
+    <form class="form-horizontal alinear" method="POST">{% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="inputEmail" >Usuario</label>
+            <div class="controls">
+                <input name="username" type="text" id="inputEmail" placeholder="Usuario">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Contraseña</label>
+            <div class="controls">
+                <input name="password" type="password" id="inputPassword" placeholder="Contraseña">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox">Recordar</label>
+                <button type="submit" class="btn btn-info">Ingresar</button>
+                <!--
+                <a href="/registrarse/" class="reg">Registrarse</a>-->
+
+            </div>
+        </div>
+    </form>
+    {% endif %}
+</body>
+</html>

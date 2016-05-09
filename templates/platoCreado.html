@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plato creado.</title>
+</head>
+<body bgcolor="DED63C">
+    {% if user.is_authenticated %}
+
+        Usuario: {{user.username|capfirst}}<br>
+        <a href="/cerrar/">Cerrar sesión.</a><br>
+
+        <p>El plato {{elemento.nombre}} ha sido guardado. Ahora proceda a añadir los ingredientes de este plato:</p>
+        <form action="ingresar_ingredientes/"><input type=submit value="Continuar." ></form>
+
+    {% else %}
+    <form class="form-horizontal alinear" method="POST">{% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="inputEmail" >Usuario</label>
+            <div class="controls">
+                <input name="username" type="text" id="inputEmail" placeholder="Usuario">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Contraseña</label>
+            <div class="controls">
+                <input name="password" type="password" id="inputPassword" placeholder="Contraseña">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox">Recordar</label>
+                <button type="submit" class="btn btn-info">Ingresar</button>
+                <!--
+                <a href="/registrarse/" class="reg">Registrarse</a>-->
+
+            </div>
+        </div>
+    </form>
+    {% endif %}
+</body>
+</html>

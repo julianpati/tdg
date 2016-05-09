@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu del dia.</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gestorRestaurante/style.css' %}" />
+</head>
+<body bgcolor="DED63C">
+    {% if user.is_authenticated %}
+        <div id="wrapper">
+            <table width="100%" bgcolor="#F9821A">
+                <tr>
+                <td>
+                <h1>Master chef.</h1>
+                Usuario: {{user.username|capfirst}}<br>
+                    <a href="/principal/">principal.</a><br>
+                    <a href="/cerrar/">Cerrar sesión.</a>
+                </td>
+                </tr>
+            </table>
+            <center>
+                    <a href="/tomar_orden/" > <img src="{% static "gestorRestaurante/imagenes/tomarorden.jpg" %}" alt="My image"/  width="15%" height="15%"></a>
+                    <a href="/anadir_platos/" > <img src="{% static "gestorRestaurante/imagenes/anadirplatosalaorden.jpg" %}" alt="My image"/  width="15%" height="15%"></a>
+                    <a href="/menu_dia/" > <img src="{% static "gestorRestaurante/imagenes/menudeldia.png" %}" alt="My image"/  width="15%" height="15%"></a>
+            </center>
+
+            <table  width="100%">
+                <tr>
+                    <td width="15%"></td>
+
+                    <td>
+                        Platos primarios: <br>
+                        {% for d in datosMenu %}
+                            {% if d.tipoPlato = "PR" %}
+                                - {{d.plato}}. <br>
+                            {% endif %}
+                        {% endfor %}
+
+                        Platos secundarios: <br>
+                        {% for d in datosMenu %}
+                            {% if d.tipoPlato = "SE" %}
+                                - {{d.plato}}. <br>
+                            {% endif %}
+                        {% endfor %}
+
+                        Jugos: <br>
+                        {% for d in datosMenu %}
+                            {% if d.tipoPlato = "JU" %}
+                                - {{d.plato}}. <br>
+                            {% endif %}
+                        {% endfor %}
+
+                        Otros: <br>
+                        {% for d in datosMenu %}
+                            {% if d.tipoPlato = "SO" %}
+                                - {{d.plato}}. <br>
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </td>
+                </tr>
+            </table>
+
+            <div class="clear"></div>
+        </div>
+        <div id="footer">
+            <center>
+                <p>Copyright © 2016. <br> Julián Andrés Patiño Tel: 313 635 8836 Email: julandpatino@utp.edu.co<br>
+                    Luis Alfonso Zuleta Tel: 317 726 5964 Email: alfonzule@utp.edu.co <br>
+                    Pereira-Risaralda.
+                </p>
+            </center>
+        </div>
+
+
+    {% else %}
+    <form class="form-horizontal alinear" method="POST">{% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="inputEmail" >Usuario</label>
+            <div class="controls">
+                <input name="username" type="text" id="inputEmail" placeholder="Usuario">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Contraseña</label>
+            <div class="controls">
+                <input name="password" type="password" id="inputPassword" placeholder="Contraseña">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox">Recordar</label>
+                <button type="submit" class="btn btn-info">Ingresar</button>
+                <!--
+                <a href="/registrarse/" class="reg">Registrarse</a>-->
+
+            </div>
+        </div>
+    </form>
+    {% endif %}
+</body>
+</html>

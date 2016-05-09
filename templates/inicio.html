@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gestorRestaurante/style.css' %}" />
+</head>
+
+<body bgcolor="DED63C">
+    {% if user.is_authenticated %}
+        Bienvenido {{user.username|capfirst}}
+        <a href="/cerrar/">Salir</a>
+    {% else %}
+        <div id="wrapper">
+            <table style="background:#F9821A"  WIDTH=100%>
+                <tr>
+                    <td WIDTH=70 %>
+                        <h1>Master chef.</h1>
+                    </td>
+
+
+                    <td WIDTH=30%>
+                        <form class="form-horizontal alinear" method="POST">{% csrf_token %}
+                        <div class="control-group">
+                            <label class="control-label" for="inputEmail" >Usuario</label>
+                            <div class="controls">
+                                <input name="username" type="text" id="inputEmail" placeholder="Usuario">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword">Contraseña</label>
+                            <div class="controls">
+                                <input name="password" type="password" id="inputPassword" placeholder="Contraseña">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <input type="checkbox">Recordar</label>
+                                <button type="submit" class="btn btn-info">Ingresar</button>
+
+                            </div>
+                        </div>
+                        </form>
+                    </td>
+                </tr>
+
+            </table><br>
+
+            <table>
+                <tr>
+                    <td width="60%" height="40%">
+                        <center><a href="/" > <img src="{% static "gestorRestaurante/imagenes/cocinero.jpg" %}" alt="My image"/  width="70%" height="70%"></a></center>
+
+                    </td>
+                    <td width="30%">
+                        <p style="text-align: justify;">
+                            Master chef, es un apoyo en la preparación de los platos del menú,
+                            que sea de manera sencilla, eficaz, monitoreada y segura, pudiendo
+                            así reducir costos, tiempos muertos en su elaboración. Obteniendo la
+                            información adecuada se ahorrarán costos y pérdidas, en especial las pérdidas de productos y
+                            así bajar los índices de desperdicio utilizados en su preparación , sin que se perjudique o
+                            deteriore la calidad del plato.
+
+                        </p>
+
+                    </td>
+                    <td width="10%"></td>
+                </tr>
+            </table>
+            <div class="clear"></div>
+        </div>
+
+        <div id="footer">
+            <center>
+                <p>Copyright © 2016. <br> Julián Andrés Patiño Tel: 313 635 8836 Email: julandpatino@utp.edu.co<br>
+                    Luis Alfonso Zuleta Tel: 317 726 5964 Email: alfonzule@utp.edu.co <br>
+                    Pereira-Risaralda.
+                </p>
+            </center>
+        </div>
+    {% endif %}
+</body>
+</html>
+
+
+
+
+
